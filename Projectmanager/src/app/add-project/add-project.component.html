@@ -1,0 +1,111 @@
+<div class="container">
+  <!--<div class="heading">
+    <h1>
+      <h3>Project Manager</h3>
+    </h1>
+  </div>-->
+  <br>
+  
+  <!--<form #projectForm="ngForm" >    
+    <button  class="btn btn-primary" >Add Project</button>&nbsp;&nbsp; 
+    <button (click)="newTask()" class="btn btn-primary" >Add task</button>&nbsp;&nbsp; 
+     <button  class="btn btn-primary" >Add User</button>&nbsp;&nbsp;
+    <button type="submit" class="btn btn-success" >View task</button>&nbsp;&nbsp; 
+    <br>
+    <br>
+  </form>-->
+
+<form #projectForm="ngForm" (ngSubmit)="processForm(projectForm)">	        
+				<div class = "form-group">  				
+						<input type="hidden"  name ="projectId" class="form-control" [(ngModel)]="project.projectId" />	
+				</div>
+				<div class = "form-group">   
+					<label for = "taskName">Project</label>
+					<input type="text"  name ="projectName" class="form-control" required [(ngModel)]="project.projectName" />	
+				</div>		
+				<label for = "priority">Priority</label>
+				<div class="d-flex justify-content my-4 slidecontainer">   					
+					<span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
+        				<form class="range-field w-100">
+           					<input type="range" min="0" max="30" value=15 name="priorityTo" class="form-control-range slider" id="priorityTo" [(ngModel)]="project.priorityTo">
+       					 </form>
+    				<span class="font-weight-bold indigo-text ml-2 mt-1">30</span>
+				</div>
+
+        <div class = "form-group">  				
+						<input type="checkbox" mt-checkbox name="dates" (change)="checkClicked($event)" /> Set Start and End Date <br/>
+				</div>
+				<div class = "form-group"   >
+           			 <label for = "projectStartDate">StartDate</label>
+					<input type="date" [disabled]="isChecked" name ="projectStartDate" class="form-control" required [(ngModel)]="project.projectStartDate"/>	
+				 </div>
+        		 <div class = "form-group">
+           			 <label for = "projectEndDate">EndDate</label>
+					  <input type="date" [disabled]="isChecked" name ="projectEndDate" class="form-control"  required [(ngModel)]="project.projectEndDate"/>	
+           
+				  </div>
+
+        <div class="form-group row">      
+        <div class="col-sm-5">
+          <label for="firstName" class="col-sm-0 col-form-label">Manager</label>
+          <input type="text" name="firstName" class="form-control" required [(ngModel)]="project.firstName"/> 
+          </div>      
+        <div class="col-sm-5">
+          <br>	
+          <br>	
+          <!--<button class="btn btn-primary" (click)="searchManager(project.firstName)" >Search</button>-->	
+          <button (click)="searchManager(project.firstName)">Search</button>
+        </div>
+      </div>
+        <!--
+          <div class = "form-group">
+            			<label for = "parentTask">Manager</label>
+						<input type="text"  name ="parentTask" class="form-control" required [(ngModel)]="task.parentTaskName"/>	
+				</div>
+        -->				
+				
+			<button type="submit" [disabled]="!projectForm.valid" class = "btn btn-success">Add Project</button>&nbsp;&nbsp;
+			<button type="reset" class="btn btn-success" (click)="projectForm.reset()">Reset</button>
+    <br>
+    <br>
+
+	</form>
+<hr>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Project</th>
+        <th scope="col">Completed</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let projects of projects">
+        <td>{{projects.projectName}}</td>
+        <td>{{projects.projectStatus}}</td>
+        <td>{{projects.priorityTo}}</td>
+        <td>{{projects.projectStartDate}}</td>
+        <td>{{projects.projectEndDate}}</td>
+        <td>  
+            <div *ngIf="projects.projectStatus === 'Finished'">    
+              <button class="btn btn-info" (click)="editProject(projects)" disabled>Edit</button>&nbsp;&nbsp;
+            </div>
+            <div *ngIf="projects.projectStatus === 'Started'">    
+              <button class="btn btn-primary" (click)="editProject(projects)">Edit</button>&nbsp;&nbsp;
+            </div>
+        </td>
+        <td>
+            <div *ngIf="projects.projectStatus === 'Started'">    
+              <button class="btn btn-danger" (click)="suspendProject(projects)">Suspend Project</button>
+            </div>
+            <div *ngIf="projects.projectStatus === 'Finished'">    
+              <button class="btn btn-info" (click)="suspendProject(projects)" disabled>Project Suspended</button>
+            </div>      
+        </td>
+      </tr>
+    </tbody>
+  </table> 
+
+</div>

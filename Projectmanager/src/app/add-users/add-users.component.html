@@ -1,0 +1,73 @@
+<div class="container">
+  <!--<div class="heading">
+    <h1>
+      <h3>Project Manager</h3>
+    </h1>
+  </div>
+  <br>   
+  -->
+ <br>
+
+<form #usersForm="ngForm" (ngSubmit)="processForm(usersForm)">	        
+				<div class = "form-group">  				
+						<input type="hidden"  name ="usersId" class="form-control" [(ngModel)]="users.usersId" />	
+				</div>
+				<div class = "form-group">   
+					<label for = "firstName">First Name</label>
+					<input type="text"  name ="firstName" class="form-control" required [(ngModel)]="users.firstName" />	
+				</div>
+        <div class = "form-group">   
+					<label for = "lastName">Last Name</label>
+					<input type="text"  name ="lastName" class="form-control" required [(ngModel)]="users.lastName" />	
+				</div>
+        <div class = "form-group">   
+					<label for = "employeeId">Employee Id</label>
+					<input type="text"  name ="employeeId" class="form-control" required [(ngModel)]="users.employeeId" />	
+				</div>		
+
+			<button type="submit" [disabled]="!usersForm.valid" class = "btn btn-success">Add User</button>&nbsp;&nbsp;
+			<button type="reset" class="btn btn-success" (click)="projectForm.reset()">Reset</button>
+    <br>
+    <br>
+	</form>
+<hr>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">First Name</th>
+
+        <th scope="col">Last Name</th>
+        <th scope="col">Employee Id</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let userss of userss">
+        
+          <td *ngIf="!userss?.editUser">{{userss?.firstName}}</td>
+                <td *ngIf="userss?.editUser">
+                    <input type='text'  [(ngModel)]="userss.firstName " />
+                </td>
+        <td *ngIf="!userss?.editUser">{{userss?.lastName}}</td>
+        <td *ngIf="userss?.editUser">
+                    <input type='text'  [(ngModel)]="userss.lastName " />
+                </td>
+        <td *ngIf="!userss?.editUser">{{userss?.employeeId}}</td>
+        <td *ngIf="userss?.editUser">
+                    <input type='text'  [(ngModel)]="userss.employeeId " />
+                </td>
+        <td>  
+            <div>    
+              <button class="btn btn-primary" *ngIf="!userss?.editUser" (click)="editUsers(userss)">Edit</button>&nbsp;&nbsp;
+              <button class="btn btn-primary"  *ngIf="userss?.editUser" (click)="saveUsers(userss)">Save</button>&nbsp;&nbsp;
+            </div>
+        </td>
+        <td> 
+            <div>    
+              <button class="btn btn-info" (click)="deleteUser(userss)" >Delete user</button>
+            </div>      
+        </td>
+      </tr>
+    </tbody>
+  </table> 
+
+</div>

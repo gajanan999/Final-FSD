@@ -1,0 +1,47 @@
+<div class="container">
+	<div>
+  		<h1>
+   		 <h3>Add Task here..</h3>
+  		</h1>
+	</div>
+	<form #taskForm="ngForm" (ngSubmit)="processForm(taskForm)">	        
+				<div class = "form-group">  				
+						<input type="hidden"  name ="taskId" class="form-control" [(ngModel)]="task.taskId" />	
+				</div>
+				<div class = "form-group">   
+					<label for = "taskName">TaskName</label>
+					<input type="text"  name ="taskName" class="form-control" required [(ngModel)]="task.taskName" />	
+				</div>		
+			<!--	<div class = "form-group slidecontainer">
+					<label for = "priority">Priority</label>				
+					<input type="range" min="0" max="30" name="priority" class="form-control-range slider" id="priority" [(ngModel)]="task.priority">
+				</div>			-->
+				<label for = "priority">Priority</label>
+				<div class="d-flex justify-content my-4 slidecontainer">   					
+					<span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
+        				<form class="range-field w-100">
+           					<input type="range" min="0" max="30" name="priorityTo" class="form-control-range slider" id="priorityTo" [(ngModel)]="task.priorityTo">
+       					 </form>
+    				<span class="font-weight-bold indigo-text ml-2 mt-1">30</span>
+				</div>
+				<div class = "form-group">
+            			<label for = "parentTask">ParentTask</label>
+						<input type="text"  name ="parentTask" class="form-control" required [(ngModel)]="task.parentTaskName"/>	
+				</div>
+				<div class = "form-group">
+           			 <label for = "startDate">StartDate</label>
+					<input type="text"  name ="startDate" class="form-control" required [(ngModel)]="task.startDate"/>	
+				 </div>
+        		 <div class = "form-group">
+           			 <label for = "endDate">EndDate</label>
+					  <input type="text"  name ="endDate" class="form-control"  required [(ngModel)]="task.endDate"/>	
+				  </div>				
+				<br>		
+			<button type="submit" [disabled]="!taskForm.valid" class = "btn btn-success">Add task</button>&nbsp;&nbsp;
+			<button type="reset" class="btn btn-success" (click)="taskForm.reset()">Reset</button>
+	</form>
+</div>
+
+
+	
+			

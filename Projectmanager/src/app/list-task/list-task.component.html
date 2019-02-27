@@ -1,0 +1,99 @@
+<div class="container">
+
+  <br>   
+  <form #taskForm="ngForm" (ngSubmit)="searchTask(taskForm)">    
+    
+    <br>
+    <br>
+    <div class="form-horizontal">   
+      <div class="form-group row">      
+        <label for="taskName" class="col-sm-0 col-form-label">Task:</label>
+        <div *ngIf="!show" class="col-sm-5">
+          <input type="text" name="taskName" class="form-control"/>
+        </div>
+        <div *ngIf="show" class="col-sm-5">
+          <input type="text" name="taskName" class="form-control" [(ngModel)]="task.taskName"/>
+        </div>
+        
+        <label for="parentTaskName" class="col-sm-1 col-form-label">ParentTask:</label>
+        <div *ngIf="!show" class="col-sm-5">
+          <input type="text" name="parentTaskName" class="form-control" />
+        </div>
+        <div *ngIf="show" class="col-sm-5">
+          <input type="text" name="parentTaskName" class="form-control" [(ngModel)]="task.parentTaskName"/>
+        </div>
+      </div>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="form-group row">
+        <label for="priorityFrom" class="col-sm-0 col-form-label">Prority From:</label>
+          <div *ngIf="!show" class="col-sm-2">
+            <input type="text" name="priorityFrom" class="form-control" />
+          </div>
+          <div *ngIf="show" class="col-sm-2" >
+            <input type="text" name="priorityFrom" class="form-control" [(ngModel)]="task.priorityFrom"/>
+          </div>
+
+        <label for="priorityTo" class="col-sm-0 col-form-label">Prority To:</label>
+          <div *ngIf="!show" class="col-sm-2">
+            <input type="text" name="priorityTo" class="form-control" />
+          </div>
+          <div *ngIf="show" class="col-sm-2">
+            <input type="text" name="priorityTo" class="form-control" [(ngModel)]="task.priorityTo"/>
+          </div>
+
+        <label for="startDate" class="col-sm-0 col-form-label">Start Date:</label>
+          <div *ngIf="!show" class="col-sm-2">
+            <input type="text" name="startDate" class="form-control" />
+          </div>
+          <div *ngIf="show" class="col-sm-2">
+            <input type="text" name="startDate" class="form-control" [(ngModel)]="task.startDate"/>
+          </div>
+
+        <label for="endDate" class="col-sm-0 col-form-label">End Date:</label>
+          <div *ngIf="!show" class="col-sm-2">
+            <input type="text" name="endDate" class="form-control"/>
+          </div>
+          <div *ngIf="show" class="col-sm-2">
+            <input type="text" name="endDate" class="form-control" [(ngModel)]="task.endDate"/>
+          </div>
+      </div>
+    </div>
+  </form>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Parent</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Start</th>
+        <th scope="col">End</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{task.taskName}}</td>
+        <td>{{task.parentTaskName}}</td>
+        <td>{{task.priorityTo}}</td>
+        <td>{{task.startDate}}</td>
+        <td>{{task.endDate}}</td>
+        <td>  
+            <div *ngIf="task.taskStatus === 'Finished'">    
+              <button class="btn btn-info" (click)="editTask(task)" disabled>Edit</button>&nbsp;&nbsp;
+            </div>
+            <div *ngIf="task.taskStatus === 'Started'">    
+              <button class="btn btn-primary" (click)="editTask(task)">Edit</button>&nbsp;&nbsp;
+            </div>
+        </td>
+        <td>
+            <div *ngIf="task.taskStatus === 'Started'">    
+              <button class="btn btn-danger" (click)="finishTask(task)">End task</button>
+            </div>
+            <div *ngIf="task.taskStatus === 'Finished'">    
+              <button class="btn btn-info" (click)="finishTask(task)" disabled>Task Finished</button>
+            </div>      
+        </td>
+      </tr>
+    </tbody>
+  </table> 
+</div>
